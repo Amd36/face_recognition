@@ -12,6 +12,9 @@ args = parser.parse_args()
 # Load HAAR face classifier
 face_classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
+# Define the base dataset dir
+base_dir = "datasets"
+
 # Load functions
 def face_extractor(img):
     # Function detects faces and returns the cropped face
@@ -26,13 +29,21 @@ def face_extractor(img):
     for (x, y, w, h) in faces:
         cropped_face = img[y:y+h, x:x+w]
         return cropped_face
+    
+def update_labels(dataset_dir):
+    labels = [f for f in os.listdir(dataset_dir) if os.path.isdir(os.path.join(dataset_dir, f))]
+
+    with open("labels.txt", 'w') as file:
+        for label in labels:
+            file.write(f"{label}\n")
+
 
 # Initialize Picamera2
 picam2 = Picamera2()
 picam2.start()
 
 # Set dataset directory based on user input
-dataset_dir = os.path.join("datasets", args.name)
+dataset_dir = os.path.join(base_dir, args.name)
 if not os.path.exists(dataset_dir):
     os.makedirs(dataset_dir)
 
@@ -77,3 +88,6 @@ finally:
     picam2.close()
     cv2.destroyAllWindows()
     print("Samples Taken")
+
+    update_labels(base_dir)
+    print("labels.txt updated!")
