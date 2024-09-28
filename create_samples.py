@@ -1,3 +1,18 @@
+"""
+Face Cropper and Dataset Collector
+
+This script uses the Picamera2 library to capture images from a Raspberry Pi camera. It detects faces in the captured frames using a HAAR face classifier and collects samples of the user's face, saving them to a specified directory. The script also updates a `labels.txt` file with the name of the dataset, which is useful for managing multiple datasets.
+
+### Features:
+- Captures face images and saves them in a specified dataset directory.
+- Detects and crops faces from the captured images.
+- Updates a labels file with the name of the person whose images are being captured.
+- Collects up to 100 samples of the user's face.
+
+### Command-line Arguments:
+- `--name`: Name of the dataset directory (default is 'Person').
+"""
+
 import cv2
 import os
 import time
