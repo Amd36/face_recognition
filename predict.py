@@ -48,6 +48,10 @@ def preprocess_image(img, image_size):
     img_resized = cv2.resize(img, (image_size, image_size))
     img_normalized = img_resized / 255.0
     img_expanded = np.expand_dims(img_normalized, axis=0)
+
+    # Ensure the data type is FLOAT32
+    img_expanded = img_expanded.astype(np.float32)
+
     return img_expanded
 
 # Function to detect and extract faces from an image
