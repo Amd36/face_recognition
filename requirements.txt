@@ -1,4 +1,5 @@
 opencv-python
-tflite-runtime
+# tflite-runtime
+tensorflow-cpu
 matplotlib
-picamera2
+# picamera2
